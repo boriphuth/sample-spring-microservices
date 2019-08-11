@@ -5,6 +5,12 @@ node {
 
     node(label:'builder') {
 
+        stage('Initialize') {
+            def dockerHome = tool 'Docker'
+            def mavenHome  = tool 'Maven'
+            env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+        }
+        
         stage('Checkout') {
             git url: 'https://github.com/boriphuth/sample-spring-microservices.git', credentialsId: 'github-id', branch: 'master'
         }
