@@ -1,5 +1,5 @@
-def CONTAINER_NAME="gateway-service"
-def CONTAINER_TAG="latest"
+def CONTAINER_NAME="gateway"
+
 def DOCKER_HUB_USER="boriphuth"
 def HTTP_PORT="8765"
 

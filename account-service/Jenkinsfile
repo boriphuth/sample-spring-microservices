@@ -1,5 +1,5 @@
-def CONTAINER_NAME="account-service"
-def CONTAINER_TAG="latest"
+def CONTAINER_NAME="account"
+
 def DOCKER_HUB_USER="boriphuth"
 def HTTP_PORT="2220"
 
