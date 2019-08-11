@@ -3,8 +3,6 @@ def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="boriphuth"
 def HTTP_PORT="3333"
 
-node {
-
     node(label:'builder') {
 
         stage('Initialize') {
@@ -46,5 +44,3 @@ node {
         }      
 
     }
-
-}
