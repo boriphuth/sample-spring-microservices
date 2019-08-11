@@ -1,7 +1,7 @@
 def CONTAINER_NAME="gateway-service"
 def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="boriphuth"
-def HTTP_PORT="8090"
+def HTTP_PORT="3333"
 
 node(label:'builder') {
 
@@ -34,7 +34,8 @@ node(label:'builder') {
 
         stage ('Run') {
             sh "docker pull ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}"
-            docker.image("${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}").run('-p 3333:3333 -h gateway --name gateway --link discovery --link account --link customer')
+            sh "docker run -d --rm -p ${HTTP_PORT}:${HTTP_PORT} --name ${CONTAINER_NAME} ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}"
+            // docker.image("${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}").run('-p 3333:3333 -h gateway --name gateway --link discovery --link account --link customer')
             echo "${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version} port : 3333"
         }
 }
