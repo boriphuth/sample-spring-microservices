@@ -34,7 +34,7 @@ node(label:'builder') {
 
         stage ('Run') {
             sh "docker pull ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}"
-            sh "docker run -d --rm -p ${HTTP_PORT}:${HTTP_PORT} --name ${CONTAINER_NAME} ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}"
+            sh "docker run -d --rm -p ${HTTP_PORT}:${HTTP_PORT} -h ${CONTAINER_NAME} --name ${CONTAINER_NAME} ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version} --link discovery --link account --link customer"
             // docker.image("${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}").run('-p 8765:8765 -h gateway --name gateway --link discovery --link account --link customer')
             echo "${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version} port : ${HTTP_PORT}"
         }
