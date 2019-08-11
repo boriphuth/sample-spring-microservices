@@ -33,6 +33,7 @@ node(label:'builder') {
         }
 
         stage ('Run') {
+            sh "docker pull ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}"
             docker.image("${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}").run('-p 3333:3333 -h gateway --name gateway --link discovery --link account --link customer')
             echo "${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version} port : 3333"
         }
