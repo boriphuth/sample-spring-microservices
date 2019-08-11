@@ -1,4 +1,4 @@
-def CONTAINER_NAME="jenkins-pipeline"
+def CONTAINER_NAME="gateway-service"
 def CONTAINER_TAG="latest"
 def DOCKER_HUB_USER="boriphuth"
 def HTTP_PORT="8090"
@@ -26,13 +26,14 @@ node(label:'builder') {
         stage('Image') {
             dir ('gateway-service') {
                 docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-                def app = docker.build("localhost:5000/gateway-service:${env.version}", '.').push()
+                def app = docker.build("${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}", '.').push()
+                // def app = docker.build("localhost:5000/gateway-service:${env.version}", '.').push()
                 }
             }
         }
 
         stage ('Run') {
-            docker.image("localhost:5000/gateway-service:${env.version}").run('-p 3333:3333 -h gateway --name gateway --link discovery --link account --link customer')
+            docker.image("gateway-service:${env.version}").run('-p 3333:3333 -h gateway --name gateway --link discovery --link account --link customer')
             echo "gateway-service: 3333"
         }
 }
