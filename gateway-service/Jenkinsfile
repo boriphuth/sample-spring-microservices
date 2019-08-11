@@ -33,5 +33,6 @@ node(label:'builder') {
 
         stage ('Run') {
             docker.image("localhost:5000/gateway-service:${env.version}").run('-p 3333:3333 -h gateway --name gateway --link discovery --link account --link customer')
+            echo "gateway-service: 3333"
         }
 }
