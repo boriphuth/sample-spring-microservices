@@ -36,7 +36,7 @@ node {
 
         stage ('Run') {
             sh "docker pull ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}"
-            sh "docker run -d --rm -p ${HTTP_PORT}:${HTTP_PORT} --name ${CONTAINER_NAME} ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version} --link discovery --link account"
+            sh "docker run -d --rm -p ${HTTP_PORT}:${HTTP_PORT} --name ${CONTAINER_NAME} ${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version}"
             //docker.image("localhost:5000/customer-service:${env.version}").run('-p 3333:3333 -h customer --name customer --link discovery --link account')
             echo "${DOCKER_HUB_USER}/${CONTAINER_NAME}:${env.version} port : ${HTTP_PORT}"
         }
